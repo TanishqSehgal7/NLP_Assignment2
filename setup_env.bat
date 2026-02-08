@@ -1,21 +1,32 @@
 @echo off
-echo Creating Python virtual environment...
-python -m venv nlp_env
+echo Setting up CNN Assignment Environment...
 
+REM Check if Python is installed
+python --version >nul 2>&1
+if errorlevel 1 (
+    echo Python is not installed. Please install Python 3.8+ first.
+    pause
+    exit /b 1
+)
+
+REM Create virtual environment
+echo Creating virtual environment...
+python -m venv cnn_env
+
+REM Activate virtual environment
 echo Activating virtual environment...
-call nlp_env\Scripts\activate.bat
+call cnn_env\Scripts\activate.bat
 
-echo Installing packages from requirements.txt...
-pip install --upgrade pip
+REM Upgrade pip
+echo Upgrading pip...
+python -m pip install --upgrade pip
+
+REM Install dependencies
+echo Installing dependencies...
 pip install -r requirements.txt
-
-echo Registering Jupyter kernel...
-python -m ipykernel install --user --name=nlp_env --display-name="NLP Environment"
 
 echo.
 echo Setup complete! 
-echo To use the environment:
-echo 1. Run: nlp_env\Scripts\activate.bat
-echo 2. Start Jupyter: jupyter notebook
-echo 3. Select "NLP Environment" kernel in the notebook
+echo To activate environment: cnn_env\Scripts\activate.bat
+echo To run jupyter: jupyter notebook
 pause
